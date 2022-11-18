@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<head>
+ 
+<!---
+ 
+ 
+        nara : all in one 
+ 
+        @aaronellas
+ 
+ 
+--->
+ 
+<title>{Title}</title>
+<link rel="shortcut icon" href="{Favicon}">
+<link rel="alternate" type="application/rss+xml" href="{RSS}">
+ 
+<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i|Open+Sans:400,400i,600,600i|Rubik:400,400i,600,600i" rel="stylesheet">
+<link href="//dl.dropbox.com/s/vpi3f9s7nhpe7v7/honeybee.css" rel="stylesheet"> 
+ 
+<style type="text/css">
+ 
+/* scrollbar */
+ 
+::-webkit-scrollbar { height:5px; width:1px; background:#fafafa; }
+::-webkit-scrollbar-thumb { background:#facade; }
+ 
+/* tumblr controls */
+ 
+iframe.tmblr-iframe {
+    z-index:99999999999999!important;
+    top:0!important;
+    right:0!important;
+    opacity:0.4;
+    /* delete invert(1) from here */
+        filter:invert(1) contrast(150%);
+        -webkit-filter:invert(1) contrast(150%);
+        -o-filter:invert(1) contrast(150%);
+        -moz-filter:invert(1) contrast(150%);
+        -ms-filter:invert(1) contrast(150%);
+    /* to here if your blog has a dark background */
+    transform:scale(0.65);
+    transform-origin:100% 0;
+    -webkit-transform:scale(0.65);
+    -webkit-transform-origin:100% 0;
+    -o-transform:scale(0.65);
+    -o-transform-origin:100% 0;
+    -moz-transform:scale(0.65);
+    -moz-transform-origin:100% 0;
+    -ms-transform:scale(0.65);
+    -ms-transform-origin:100% 0;
+    transition:all .6s ease;
+}
+ 
+iframe.tmblr-iframe:hover { opacity:0.6!important; }
+ 
+/* tooltips */
+ 
+#s-m-t-tooltip {
+    max-width:300px;
+    margin:15px;
+    padding:4px 6px;
+    z-index:99999999;
+    color:#000;
+    border:1px solid #eee;
+    background:#fafafa;
+}
+ 
+/* body */ 
+ 
+body {
+    background:#fff;
+    color:#555;
+    letter-spacing:.5px;
+    font-family:'PT serif', serif;
+    font-size:11px;
+    font-style:italic;
+    line-height:130%;
+-moz-osx-font-smoothing:grayscale;
+-webkit-font-smoothing:antialiased;
+font-smoothing:antialiased;
+}
+ 
+a {
+    color:#8b8b8b; /* links */
+    text-decoration:none;
+    transition:all .6s ease;
+}
+ 
+a:hover { color:#facade; }
+ 
+blockquote { padding-left:10px; border-left:2px solid #eee;  }
+ 
+h1 {
+    font-size:15px;
+    color:#222; 
+    font-weight:600;
+    text-transform:lowercase;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    font-family:'Source Sans Pro',sans-serif;
+}
+ 
+b { font-style:bold; }
+i { font-style:italic; }
+p { margin:10px 0; }
+ 
+/* container */
+ 
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+ 
+#container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+ 
+#carousel, #navigation {
+    flex:initial;
+    display:block;
+}
+ 
+#carousel {
+    overflow:hidden;
+    width:600px;
+    height:390px;
+    border-radius:2px;
+    background:#fefefe; /* container background */
+    border:1px solid #eee; /* border colour */
+}
+ 
+.p-wrapper {
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform 0.4s ease-in-out;
+}
+ 
+#button_a:checked ~ #carousel .p-wrapper {
+    -webkit-transform:translateY(0);
+    transform:translateY(0); 
+}
+ 
+#button_b:checked ~ #carousel .p-wrapper {
+    -webkit-transform:translateY(-100%);
+    transform:translateY(-100%); 
+}
+ 
+#button_c:checked ~ #carousel .p-wrapper {
+    -webkit-transform:translateY(-200%);
+    transform:translateY(-200%); 
+}
+ 
+#button_d:checked ~ #carousel .p-wrapper {
+    -webkit-transform:translateY(-300%);
+    transform:translateY(-300%); 
+}
+ 
+#button_e:checked ~ #carousel .p-wrapper {
+    -webkit-transform:translateY(-400%);
+    transform:translateY(-400%); 
+}
+ 
+[class^="panel_"] {
+    overflow:auto;
+    position:relative;
+    width:inherit;
+    height:inherit;
+    padding:48px;
+}
+ 
+#navigation { margin-left:24px; }
+ 
+[class^="label_"] {
+    display:block;
+    cursor:pointer;
+    margin:8px 0;
+    width:32px;
+    height:32px;
+    line-height:32px;
+    text-align:center;
+    border-radius:3px;
+    color:#facade; /* navigation icon colour */
+    background:#fafafa; /* navigation icon background */
+    transition:all 0.6s ease;
+}
+ 
+[class^="label_"]:hover {
+    color:#000; /* navigation icon colour on hover */
+    background:#facade; /* navigation icon bg on hover */
+}
+ 
+[class^="label_"]:hover .slide { opacity:1; }
+ 
+ .slide {
+    opacity:0;
+    position:relative;
+    top:0px;
+    left:35px;
+    padding-left:15px;
+    color:#444; /* hovered word colour */
+    font-size:11px;
+    transition:opacity .6s ease;
+}
+ 
+#button_a:checked ~ #navigation .label_a,
+#button_b:checked ~ #navigation .label_b,
+#button_c:checked ~ #navigation .label_c,
+#button_d:checked ~ #navigation .label_d,
+#button_e:checked ~ #navigation .label_e {
+     cursor:default;
+     color:#444; /* active tab icon colour */
+     background:#8b8b8b; /* active tab icon background */
+}
+ 
+#navigation .th { border:none; }
+nav .th, .about .th { display:inline; margin-right:10px; }
+ 
+/* ABOUT SECTION */
+ 
+nav { position:relative; float:left; width:34%; }
+ 
+.icon { display:block; margin-bottom:10px; }
+.icon img { width:170px; height:auto; border-radius:2px; }
+ 
+/* social media icons */
+ 
+.social { position:relative; text-align:center; }
+ 
+.social a { display:inline; }
+.social a .th {
+    margin-right:10px;
+    width:15px;
+    height:15px;
+    font-size:15px;
+    text-align:center!important;
+    transition:all .6s ease;
+}
+ 
+.social a .th { margin-bottom:5px; }
+.social a:last-of-type { margin-right:0; }
+.social a .th:hover { color:#000; }
+ 
+/* about tags */
+ 
+.tags { 
+    border:1px solid #eee; 
+    background:#fff; 
+    padding:10px; 
+    margin-bottom:10px;
+}
+ 
+.tags a { display:inline-block; margin-right:8px; }
+.tags a:before { content:'✿ '; margin-right:1px; }
+ 
+/* right section */
+ 
+.about { float:right; width:62%; } 
+ 
+/* title */
+ 
+.title { 
+    margin-bottom:10px; 
+    font-size:13px; 
+    font-weight:600; 
+    color:#222;
+    font-style:bold;
+    font-family:'Source Sans Pro',sans-serif;
+    display:inline-block;
+}
+ 
+/* info */
+ 
+.info {
+    margin-bottom:15px;
+    border:1px solid #eee;
+    padding:10px;
+    font-size:12px;
+    background:#fff;
+}
+ 
+.info b { margin-right:5px; font-weight:600; color:#facade; }
+.info b { font-family:'Source Sans Pro',sans-serif ; }
+.talk { margin-top:-10px; }
+ 
+/* SOCIAL SECTION */
+ 
+.left { float:left; width:45%; }
+.right { float:right; width:50%; }
+ 
+h4 {
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+    margin-bottom:10px;
+    font-weight:600;
+    font-style:italic;
+    font-size:13px;
+    color:#222;
+    font-family:'Source Sans Pro',sans-serif;
+}
+ 
+/* blogs */
+ 
+.i img {
+    float:left;
+    width:35px;
+    height:35px;
+    opacity:.9;
+    margin-right:10px;
+    transition:all .6s ease;
+}
+ 
+.blogs { margin-bottom:40px; }
+.blogs a {
+    display:block;
+    margin-bottom:5px;
+    line-height:35px;
+    word-wrap:break-word;
+    border:1px solid #eee;
+    background:#fafafa;
+    border-radius:2px;
+}
+ 
+.blogs a b { margin-right:6px; font-style:italic; color:#222; }
+.blogs a:hover { background:#fff; color:#222;}
+ 
+/* projects */ 
+ 
+.progress {
+	background:#fafafa;
+	margin-bottom:15px;
+	margin-top:6px;
+}
+ 
+.progress-fill {
+	border-radius:3px;
+	display:block;
+	height:5px;
+	background:#facade;
+}
+ 
+/* updates */
+ 
+.updates { margin-bottom:40px; }
+.up b, .current b { font-family:'Source Sans Pro',sans-serif ;}
+.current { margin-bottom:10px; }
+.current b { font-weight:600; margin-right:5px; color:#facade;}
+.up b {color:#facade};
+ 
+/* quote */
+ 
+.quote { font-style:italic; font-size:15px; }
+.quote .th {
+    width:20px;
+    float:left;
+    margin-right:10px;
+    font-size:20px;
+    color:#222;
+}
+ 
+.txt { float:right; width:calc(100% - 30px); }
+ 
+/* ASK SECTION */
+ 
+.faq { display:block; margin-bottom:10px; }
+.faq a { font-weight:600; }
+ 
+.q { 
+    margin-right:6px; 
+    display:inline; 
+    font-weight:600; 
+    font-style:none; 
+    color:#facade;
+    font-family:'Source Sans Pro',sans-serif;
+}
+ 
+/* TAGS SECTION */
+ 
+.box { padding-bottom:10px; border-radius:2px; }
+.box:last-of-type { border-bottom:10; border-radius:2px; }
+ 
+.tt {
+    font-size:12px;
+    font-weight:600;
+    color:#facade; /* tags title */ 
+    word-wrap:break-word;
+    display:inline;
+    margin-right:10px;
+    font-family:'Source Sans Pro',sans-serif;
+}
+ 
+.t { display:inline; }
+.t a {
+    display:inline-block;
+    margin-right:10px;
+    line-height:20px;
+    font-weight:400;
+    font-size:10.5px;
+    color:#555
+;
+}
+ 
+.t a:before { content:"#"; }
+.t a:hover, .faq a:hover { color:#000; }
+ 
+ .y { display:inline; }
+.y a {
+    display:inline-block;
+    margin-right:10px;
+    line-height:20px;
+    font-weight:400;
+    font-size:10.5px;
+    color:#555
+;
+}
+ 
+.y a:hover, .faq a:hover { color:#000; }
+/* BLOGROLL SECTION */
+ 
+#spare { width:calc((159px * 3) + 30px);  }
+.b a { vertical-align:-11px; }
+.user:hover { background:#fff; ;}
+ 
+.user {
+    width:calc(505px / 3); 
+    height:40px;
+    overflow:hidden;
+    display:inline-block;
+    margin:0 0px 10px 0px;
+    transition:all .6s ease;
+-webkit-transition:all .6s ease;
+-moz-transition:all .6s ease;
+-o-transition:all .6s ease;
+}
+ 
+.user img {
+    float:left;
+    width:40px;
+    height:40px;
+    border-radius:2px;
+    margin-right:10px;
+}
+/* do not disturb */
+.lo { bottom:20px; right:20px; position:fixed; }
+.lo a { text-transform:lowercase; font-size:12px; }
+ 
+</style>
+</head>
+ 
+<body>
+ 
+<div id="container">
+ 
+<input hidden type="radio" name="carousel-control" id="button_a" checked/>
+<input hidden type="radio" name="carousel-control" id="button_b"/>
+<input hidden type="radio" name="carousel-control" id="button_c"/>
+<input hidden type="radio" name="carousel-control" id="button_d"/>    
+<input hidden type="radio" name="carousel-control" id="button_e"/>    
+ 
+<div id="carousel">
+<div class="p-wrapper">
+ 
+ 
+<!----------------------------- ABOUT -------------------------------->
+ 
+<section class="panel_a">
+ 
+<nav>
+<div class="title">add me!</div>
+<div class="tags">
+    <a href="https://twitter.com/girifour">twitter</a>
+    <a href="https://open.spotify.com/user/w9xts3965znaupc2co3gv66i2?si=6538f3c4c3c2481a">spotify</a>
+    <a href="https://discordapp.com/users/sian#4407">discord</a>
+  
+</div>
+ 
+<div class="icon"><img src="https://64.media.tumblr.com/7cd27efecffba789663f483d5b9e13b3/15008e7198a886ca-86/s2048x3072/ba1017350a88d3b03157883ba44d65de6b506053.jpg" /></div> 
+<!-- this is the default, you can replace with your desired icon url -->
+ 
+<div class="social">
+ 
+    <a href="https://twitter.com/girifour" title="twitter">
+    <span class="th th-twitter"></span></a>
+ 
+ 
+    <!-- more icons at honeybee.suiomi.com -->
+</div>
+ 
+</nav>
+ 
+<div class="about">
+ 
+<span class="th th-information-o"></span><div class="title">info</div>
+<div class="info">
+    <b>name</b> sian <br>
+    <b>age</b> 19 <br>
+    <b>pronouns</b> she/her <br>
+    <b>languages</b> english, 한국어, learning japanese & mandarin <br>
+     <b>sexuality</b> lesbian <br>
+</div>
+ 
+ 
+<span class="th th-user-o"></span><div class="title">about</div>
+<div class="talk">
+<p>
+hi welcome to my tumblr i'm still working on an actual about section have this in the mean time
+</div>
+ 
+</div>
+ 
+</section>
+ 
+<!------------------------------ SOCIAL -------------------------------->
+ 
+<section class="panel_b">
+ 
+<!-- start left column -->
+<div class="left">
+ 
+<div class="blogs">
+<h4>bias list</h4>
+ 
+    <a href="/"><div class="i"><img src="https://64.media.tumblr.com/8cbd4154d474060a4cb0969f0ab950cd/c2876d3f80a67274-1a/s250x400/e6549f65d56b34eb01ff55ad8b2d5bb3de4cb05d.jpg" /></div> <b>loona</b> im yeojin </a>
+    <a href="/"><div class="i"><img src="https://64.media.tumblr.com/8a22233ba71ffb0706e28a674d4376b7/eca976143323807f-61/s250x400/cd9e253598817809a83a21a08e959d4966e3c6ec.jpg" /></div> <b>seventeen</b> xu minghao</a>
+    
+ 
+</div>
+ 
+<div class="quote">
+    <span class="th th-quote-up"></span> 
+    <div class="txt">stan loona</div>
+</div>
+ 
+</div>
+<!-- end left column -->
+ 
+<!-- start right column -->
+<div class="right">
+ 
+<div class="updates">
+<h4>currently</h4>
+ 
+<div class="current"><b>listening</b> le sserafim - antifragile</div>
+<div class="current"><b>watching</b> love between fairy and devil</div>
+<div class="current"><b>anticipating</b> christmas</div>
+</div>
+ 
+<div class="projects">
+<h4>status meters</h4>
+ 
+<div class="up">
+<b>hate in my soul</b>
+<div class="progress">
+	<span class="progress-fill" style="width:100%;"></span>
+</div>
+</div>
+ 
+<div class="up">
+<b>will to live</b>
+<div class="progress">
+	<span class="progress-fill" style="width:10%;"></span>
+</div>
+</div>
+</div>
+ 
+</div>
+<!-- end right column -->
+ 
+</section>
+ 
+<!-------------------------------- ASK ---------------------------------->
+ 
+<section class="panel_c">
+ 
+<div class="faq">
+    <div class="q">do you wear wigs?</div>
+    no i do not
+</div>
+ 
+<div class="faq">
+    <div class="q">have you worn wigs?</div>
+   no i have not
+</div>
+ 
+<div class="faq">
+    <div class="q">will you wear wigs?</div>
+    maybe
+</div>
+ 
+ <div class="faq">
+    <div class="q">when will you wear wigs?</div>
+    ...
+    
+</div>
+
+
+<iframe frameborder="0" scrolling="no" width="100%" max-height="180" src="https://www.tumblr.com/ask_form/coolguy03.tumblr.com" style="background-color:transparent; overflow:hidden; margin-top:5px" id="ask_form"></iframe>
+</section>
+ 
+ 
+<!------------------------------- TAGS -------------------------------->
+ 
+<section class="panel_d">
+
+<div class="title">navigation</div>
+
+
+<div class="box">
+<div class="tt">links</div>
+<div class="y">
+    <a href="/ask">ask</a>
+    <a href="/archive">archive</a>
+    <a href="/">home</a>
+ 
+</div>
+</div>
+ 
+<div class="box">
+<div class="tt">general</div>
+<div class="t">
+    <a href="/tagged/ask">answered asks</a>
+    <a href="/tagged/edits">edits</a>
+    <a href="/tagged/playlists">playlists</a>
+    <a href="/tagged/mine">mine</a>
+    
+</div>
+</div>
+ 
+<div class="box">
+<div class="tt">kpop</div>
+<div class="t">
+    <a href="/tagged/kpop">kpop</a>
+    <a href="/tagged/ggs">girl groups</a>
+    <a href="/tagged/bgs">boy groups</a>
+    <a href="/tagged/loona">loona</a>
+    <a href="/tagged/yeojin">yeojin</a>
+    <a href="/tagged/seventeen">seventeen</a>
+    <a href="/tagged/minghao">minghao</a>
+    
+</div>
+</div>
+    
+<div class="box">
+<div class="tt">misc</div>
+<div class="t">
+    <a href="/tagged/kdrama">k-drama</a>
+    <a href="/tagged/cdrama">c-drama</a>
+    <a href="/tagged/variety shows">variety shows</a>
+    <a href="/tagged/genshin impact">genshin impact</a>
+    <a href="/tagged/coolguy03 lore">coolguy03 lore</a>
+    <a href="/tagged/shitpost">shitposts</a>
+    <a href="/tagged/meme">memes</a>
+    <a href="/tagged/gay">gay</a>
+    <a href="/tagged/adhd">adhd</a>
+
+
+</div>
+</div>
+
+
+<iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3674134654/size=large/bgcol=ffffff/linkcol=facade/tracklist=false/artwork=none/transparent=true/" seamless><a href="https://loonatheworld.bandcamp.com/track/day-night">Day&amp;Night by LOONA 이달의 소녀</a></iframe>
+
+
+</section>
+ 
+<!------------------------------ BLOGROLL ------------------------------->
+ 
+<section class="panel_e">
+ 
+<div id="blogroll">
+ 
+<!-- NO EDITING REQUIRED -->
+<div class="b">
+
+ <div class="box">
+<a href="https://www.youtube.com/watch?v=F0B7HDiY-10">
+<img src="https://64.media.tumblr.com/3dd55a77084dfef4f60b5608a33efee7/03162f5749c9df0f-a7/s640x960/0ae55ecb4ab2e903a4542f8f6e07781054ca1983.jpg" style="max-width:100%; height: auto %;" alt="lisa rinna m&m">
+</a>
+
+
+</div>
+</div>
+
+</section>
+ 
+</div> 
+</div> 
+<!-- NAVIGATION -->
+ 
+<div id="navigation">
+ 
+    <label for="button_a" class="label_a"> <span><span class="th th-user-o"></span> 
+    <div class="slide">about</div> </label>
+ 
+    <label for="button_b" class="label_b"> <span><span class="th th-target-o"></span> 
+    <div class="slide">biases</div> </label>
+ 
+    <label for="button_c" class="label_c"> <span><span class="th th-envelope-o"></span> 
+    <div class="slide">ask</div> </label>
+ 
+    <label for="button_d" class="label_d"> <span><span class="th th-map-1-o"></span> 
+    <div class="slide">navigation</div> </label>
+ 
+    <label for="button_e" class="label_e"> <span><span class="th th-heart-1-o"></span> 
+    <div class="slide">lisa-rinna-m&m</div> </label>
+ 
+    <a href="/"><label for="button_f" class="label_f"> <span><span class="th th-home-o"></span> 
+    <div class="slide">home</div> </label> </a>
+ 
+</div>              
+ 
+</div>
+ 
+<!-- DO NOT DISTURB -->
+
+
+ 
+<div class="lo"><a href="http://wanderlusthemes.tumblr.com" title="theme"><span class="th th-plane-o"></span></a></div>
+ 
+</body>
+</html>
